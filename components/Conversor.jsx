@@ -1,5 +1,5 @@
 import { View, Text, TextInput, ScrollView } from "react-native";
-import ModalSelector from "react-native-modal-selector";
+import { Picker } from "@react-native-picker/picker";
 import { obtenerDolares } from "../lib/obtenerdato";
 import { useEffect, useState } from "react";
 
@@ -40,20 +40,13 @@ export function Conversor() {
     }
   };
 
-  let index = 0;
-  const data = dolares.map((item) => ({
-    key: index++,
-    label: item.nombre,
-    value: item.casa,
-  }));
-
   const tipoData = [
-    { key: 0, label: "Pesos a Dolares", value: "compra" },
-    { key: 1, label: "Dolares a Pesos", value: "venta" },
+    { key: 0, label: "Pesos a Dólares", value: "compra" },
+    { key: 1, label: "Dólares a Pesos", value: "venta" },
   ];
 
   const initValue = selectedCasa
-    ? data.find((item) => item.value === selectedCasa)?.label
+    ? dolares.find((item) => item.casa === selectedCasa)?.nombre
     : "Selecciona una Moneda!";
 
   return (
@@ -61,64 +54,69 @@ export function Conversor() {
       <Text className="text-3xl font-bold text-center text-emerald-600 mb-6">
         Conversor de Dólares a Pesos
       </Text>
-      <ModalSelector
-        data={data}
-        initValue={initValue}
-        supportedOrientations={["landscape"]}
-        accessible={true}
-        scrollViewAccessibilityLabel={"Scrollable options"}
-        cancelButtonAccessibilityLabel={"Cancel Button"}
-        onChange={(option) => {
-          setSelectedCasa(option.value);
-          if (inputValue) {
-            const casaFiltrada = filtrarDolar(option.value);
-            if (casaFiltrada) {
-              const tasa =
-                selectedTipo === "compra"
-                  ? casaFiltrada.compra
-                  : casaFiltrada.venta;
-              const conversion =
-                selectedTipo === "compra"
-                  ? parseFloat(inputValue.replace(",", ".")) / tasa
-                  : parseFloat(inputValue.replace(",", ".")) * tasa;
-              setResultado(conversion);
-            } else {
-              setResultado(null);
+      <View className="mb-4">
+        <Text className="text-lg font-bold mb-2">Selecciona una Moneda:</Text>
+        <Picker
+          selectedValue={selectedCasa}
+          onValueChange={(value) => {
+            setSelectedCasa(value);
+            if (inputValue) {
+              const casaFiltrada = filtrarDolar(value);
+              if (casaFiltrada) {
+                const tasa =
+                  selectedTipo === "compra"
+                    ? casaFiltrada.compra
+                    : casaFiltrada.venta;
+                const conversion =
+                  selectedTipo === "compra"
+                    ? parseFloat(inputValue.replace(",", ".")) / tasa
+                    : parseFloat(inputValue.replace(",", ".")) * tasa;
+                setResultado(conversion);
+              } else {
+                setResultado(null);
+              }
             }
-          }
-        }}
-        className="mb-4"
-      />
-      <ModalSelector
-        data={tipoData}
-        initValue={
-          selectedTipo === "compra" ? "Pesos a Dolares" : "Dolares a Pesos"
-        }
-        supportedOrientations={["landscape"]}
-        accessible={true}
-        scrollViewAccessibilityLabel={"Scrollable options"}
-        cancelButtonAccessibilityLabel={"Cancel Button"}
-        onChange={(option) => {
-          setSelectedTipo(option.value);
-          if (inputValue && selectedCasa) {
-            const casaFiltrada = filtrarDolar(selectedCasa);
-            if (casaFiltrada) {
-              const tasa =
-                option.value === "compra"
-                  ? casaFiltrada.compra
-                  : casaFiltrada.venta;
-              const conversion =
-                option.value === "compra"
-                  ? parseFloat(inputValue.replace(",", ".")) / tasa
-                  : parseFloat(inputValue.replace(",", ".")) * tasa;
-              setResultado(conversion);
-            } else {
-              setResultado(null);
+          }}
+          className="bg-white border border-gray-300 rounded-lg"
+        >
+          <Picker.Item label="Selecciona una Moneda!" value={null} />
+          {dolares.map((item) => (
+            <Picker.Item
+              key={item.casa}
+              label={item.nombre}
+              value={item.casa}
+            />
+          ))}
+        </Picker>
+      </View>
+      <View className="mb-4">
+        <Text className="text-lg font-bold mb-2">Tipo de Conversión:</Text>
+        <Picker
+          selectedValue={selectedTipo}
+          onValueChange={(value) => {
+            setSelectedTipo(value);
+            if (inputValue && selectedCasa) {
+              const casaFiltrada = filtrarDolar(selectedCasa);
+              if (casaFiltrada) {
+                const tasa =
+                  value === "compra" ? casaFiltrada.compra : casaFiltrada.venta;
+                const conversion =
+                  value === "compra"
+                    ? parseFloat(inputValue.replace(",", ".")) / tasa
+                    : parseFloat(inputValue.replace(",", ".")) * tasa;
+                setResultado(conversion);
+              } else {
+                setResultado(null);
+              }
             }
-          }
-        }}
-        className="mb-4"
-      />
+          }}
+          className="bg-white border border-gray-300 rounded-lg"
+        >
+          {tipoData.map((item) => (
+            <Picker.Item key={item.key} label={item.label} value={item.value} />
+          ))}
+        </Picker>
+      </View>
       <TextInput
         editable
         keyboardType="numeric"

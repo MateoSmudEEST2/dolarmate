@@ -4,6 +4,7 @@ import {
   CotizacionesIcon,
   InfoIcon,
   CalculadoraIcon,
+  DolarHistorico,
 } from "../../components/Icons";
 
 export default function TabLayout() {
@@ -25,21 +26,28 @@ export default function TabLayout() {
       <Tabs.Screen
         name="index"
         options={{
-          title: "Cotizaciones del Dolar",
+          title: "Cotizaciones",
           tabBarIcon: ({ color }) => <CotizacionesIcon color={color} />,
         }}
       />
       <Tabs.Screen
         name="conversor"
         options={{
-          title: "Calculadora del Dolar",
+          title: "Conversor",
           tabBarIcon: ({ color }) => <CalculadoraIcon color={color} />,
+        }}
+      />
+      <Tabs.Screen
+        name="historico"
+        options={{
+          title: "Historico",
+          tabBarIcon: ({ color }) => <DolarHistorico color={color} />,
         }}
       />
       <Tabs.Screen
         name="about"
         options={{
-          title: "Informacion de la App",
+          title: "Info de la App",
           tabBarIcon: ({ color }) => <InfoIcon color={color} />,
         }}
       />

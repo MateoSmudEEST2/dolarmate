@@ -8,7 +8,7 @@
     "scheme": "dolarmate",
     "userInterfaceStyle": "light",
     "splash": {
-      "image": "./assets/splash.png",
+      "image": "./assets/icon.png",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
@@ -17,17 +17,18 @@
     },
     "android": {
       "versionCode": 1,
-      "permissions": ["android.permission.SCHEDULE_EXACT_ALARM"],
+      "permissions": [
+        "android.permission.SCHEDULE_EXACT_ALARM"
+      ],
       "googleServicesFile": "google-services.json",
       "adaptiveIcon": {
-        "foregroundImage": "./assets/adaptive-icon.png",
+        "foregroundImage": "./assets/icon.png",
         "backgroundColor": "#ffffff"
       },
-      
       "package": "com.marteo.dolarg"
     },
     "web": {
-      "favicon": "./assets/favicon.png"
+      "favicon": "./assets/icon.png"
     },
     "plugins": [
       "expo-router"
@@ -43,6 +44,7 @@
     "runtimeVersion": "1.5.0",
     "updates": {
       "url": "https://u.expo.dev/4de2f21b-075d-4447-90f0-cee2f6024e0f"
-    }
+    },
+    "owner": "marteo"
   }
 }

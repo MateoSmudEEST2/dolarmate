@@ -1,12 +1,5 @@
 import React, { useState, useEffect } from "react";
-import {
-  Text,
-  View,
-  Button,
-  Alert,
-  TouchableOpacity,
-  Platform,
-} from "react-native";
+import { Text, View, Button, TouchableOpacity } from "react-native";
 import Modal from "react-native-modal";
 import * as Notifications from "expo-notifications";
 import AsyncStorage from "@react-native-async-storage/async-storage";

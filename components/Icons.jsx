@@ -11,3 +11,7 @@ export const CotizacionesIcon = (props) => (
 export const CalculadoraIcon = (props) => (
   <MaterialIcons name="calculate" size={24} color="black" {...props} />
 );
+
+export const DolarHistorico = (props) => (
+  <MaterialIcons name="history" size={24} color="black" {...props} />
+);

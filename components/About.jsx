@@ -11,7 +11,7 @@ export function About() {
   return (
     <View className="flex-1 p-5 items-center">
       <Text className="text-2xl font-bold mb-4">Sobre la Aplicación</Text>
-      <Text className="text-lg mb-2">Versión: 0.5.0</Text>
+      <Text className="text-lg mb-2">Versión: 1.5.0</Text>
       <Text className="text-lg mb-2">Desarrollado con React Native y Expo</Text>
       <Text className="text-lg mb-2">Mateo Smud</Text>
       <Text className="text-lg mb-4">
